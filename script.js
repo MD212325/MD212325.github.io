@@ -2,7 +2,7 @@
 const map = L.map('map').setView([14.5995, 120.9842], 5); // Default center over the Philippines
 
 // Add Carto tile layer with English labels
-L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}{r}.png', {
+L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attributions">CARTO</a>',
     maxZoom: 18
 }).addTo(map);
