@@ -12,12 +12,13 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    padding: 10px; /* Added padding to avoid elements touching the edge of the screen */
 }
 
 .container {
     max-width: 600px;
     width: 100%;
-    padding: 30px;
+    padding: 20px;  /* Reduced padding for better space management */
     background: white;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
@@ -25,9 +26,10 @@ body {
 }
 
 h1 {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     font-size: 2.5em;
     color: #00796b;
+    font-weight: bold;
 }
 
 #map {
@@ -37,7 +39,6 @@ h1 {
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
-
 
 input[type="text"] {
     padding: 15px;
@@ -57,6 +58,7 @@ button {
     font-size: 1.1em;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
+    width: 100%;  /* Ensures button takes full width on mobile */
 }
 
 button:hover {
@@ -71,7 +73,6 @@ button:hover {
     background: rgba(255, 255, 255, 0.3);
     border-radius: 20px;
     padding: 10px;
-
 }
 
 #weatherIcon {
@@ -103,11 +104,67 @@ button:hover {
 }
 
 h2 {
-    font-size: 2em;
+    font-size: 1.8em;
     margin-bottom: 10px;
 }
 
 p {
     font-size: 1.2em;
-    margin: 5px 0; 
+    margin: 5px 0;
+}
+
+/* Media Query for small screens */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;  /* Adjust padding */
+        max-width: 100%; /* Ensure the container fits smaller screens */
+    }
+
+    h1 {
+        font-size: 2em; /* Make title smaller */
+    }
+
+    button {
+        padding: 12px;  /* Adjust button size */
+        font-size: 1em;
+    }
+
+    input[type="text"] {
+        padding: 12px;  /* Adjust input size */
+        font-size: 1em;
+    }
+
+    #map {
+        height: 300px;  /* Reduce map height on smaller screens */
+    }
+
+    #weatherIcon {
+        width: 100px;  /* Make weather icon smaller */
+        height: 100px;
+    }
+}
+
+/* Media Query for very small screens */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8em;  /* Further reduce title size */
+    }
+
+    button {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+
+    input[type="text"] {
+        font-size: 0.9em;
+    }
+
+    #weatherIcon {
+        width: 80px;  /* Even smaller icon for mobile */
+        height: 80px;
+    }
+
+    #map {
+        height: 250px;  /* Further reduce map height */
+    }
 }
