@@ -31,13 +31,14 @@ h1 {
 }
 
 #map {
+    transition: max-height 0.5s ease-in-out;
+    overflow: hidden;
     height: 400px;
     width: 100%;
     margin-top: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
-
 
 input[type="text"] {
     padding: 15px;
@@ -46,11 +47,16 @@ input[type="text"] {
     width: calc(100% - 40px);
     font-size: 1.1em;
     margin-bottom: 20px;
+    transition: box-shadow 0.3s;
+}
+
+input[type="text"]:focus {
+    box-shadow: 0 0 5px rgba(0, 121, 107, 0.8);
+    outline: none;
 }
 
 button {
     padding: 15px 20px;
-    background-color: #00796b;
     color: white;
     border: none;
     border-radius: 4px;
@@ -59,8 +65,16 @@ button {
     transition: background-color 0.3s, transform 0.2s;
 }
 
+button:first-of-type {
+    background-color: #0288d1;
+}
+
+button:last-of-type {
+    background-color: #00796b;
+    margin-left: 10px;
+}
+
 button:hover {
-    background-color: #004d40;
     transform: scale(1.05);
 }
 
@@ -71,7 +85,6 @@ button:hover {
     background: rgba(255, 255, 255, 0.3);
     border-radius: 20px;
     padding: 10px;
-
 }
 
 #weatherIcon {
@@ -87,14 +100,6 @@ button:hover {
     transform: scale(1.1);
 }
 
-#weatherResult {
-    margin-top: 20px;
-    padding: 20px;
-    border-radius: 8px;
-    background-color: #f1f8e9;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
 #stormStatus {
     font-weight: bold;
     color: red;
@@ -102,12 +107,27 @@ button:hover {
     margin-top: 10px;
 }
 
-h2 {
-    font-size: 2em;
-    margin-bottom: 10px;
+#loading {
+    margin-top: 10px;
+    font-style: italic;
+    color: #777;
 }
 
-p {
-    font-size: 1.2em;
-    margin: 5px 0; 
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    .container {
+        padding: 20px;
+    }
+
+    input[type="text"], button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    #map {
+        height: 300px;
+    }
 }
