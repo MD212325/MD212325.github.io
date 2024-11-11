@@ -115,23 +115,30 @@ function getWeatherByCoordinates(lat, lon, locationName) {
 // Map Tomorrow.io weather codes to OpenWeatherMap icon codes
 function getOpenWeatherIcon(weatherCode) {
     const iconMap = {
-        1000: '01d', // Clear
-        1100: '02d', // Mostly Clear
-        1101: '02d', // Partly Cloudy
-        1102: '03d', // Mostly Cloudy
-        1001: '04d', // Cloudy
-        2100: '09d', // Light Rain
-        2101: '10d', // Light Rain Showers
-        2102: '10d', // Heavy Rain
-        4200: '13d', // Light Snow
-        4001: '13d', // Snow
-        5000: '13d', // Flurries
-        5001: '50d', // Fog
-        6000: '11d', // Freezing Rain
-        6001: '11d', // Freezing Drizzle
-        7000: '11d', // Ice Pellets
-        7101: '13d', // Heavy Ice Pellets
-        8000: '11d'  // Thunderstorm
+        "0": "Unknown",
+        "1000": "01d",
+        "1100": "02d",
+        "1101": "02d",
+        "1102": "03d",
+        "1001": "04d",
+        "2000": "50d",
+        "2100": "50d",
+        "4000": "09d",
+        "4001": "10d",
+        "4200": "10d",
+        "4201": "10d",
+        "5000": "13d",
+        "5001": "13d",
+        "5100": "13d",
+        "5101": "13d",
+        "6000": "13d",
+        "6001": "13d",
+        "6200": "13d",
+        "6201": "13d",
+        "7000": "13d",
+        "7101": "13d",
+        "7102": "13d",
+        "8000": "11d"
     };
     return iconMap[weatherCode] || '01d'; // Default to clear icon if not found
 }
@@ -139,29 +146,36 @@ function getOpenWeatherIcon(weatherCode) {
 // Get a weather description based on Tomorrow.io weather code
 function getWeatherDescription(weatherCode) {
     const descriptions = {
-        1000: "Clear sky",
-        1100: "Mostly clear",
-        1101: "Partly cloudy",
-        1102: "Mostly cloudy",
-        1001: "Cloudy",
-        2100: "Light rain",
-        2101: "Light rain showers",
-        2102: "Heavy rain",
-        4200: "Light snow",
-        4001: "Snow",
-        5000: "Flurries",
-        5001: "Fog",
-        6000: "Freezing rain",
-        6001: "Freezing drizzle",
-        7000: "Ice pellets",
-        7101: "Heavy ice pellets",
-        8000: "Thunderstorm"
+        "0": "Unknown",
+        "1000": "Clear, Sunny",
+        "1100": "Mostly Clear",
+        "1101": "Partly Cloudy",
+        "1102": "Mostly Cloudy",
+        "1001": "Cloudy",
+        "2000": "Fog",
+        "2100": "Light Fog",
+        "4000": "Drizzle",
+        "4001": "Rain",
+        "4200": "Light Rain",
+        "4201": "Heavy Rain",
+        "5000": "Snow",
+        "5001": "Flurries",
+        "5100": "Light Snow",
+        "5101": "Heavy Snow",
+        "6000": "Freezing Drizzle",
+        "6001": "Freezing Rain",
+        "6200": "Light Freezing Rain",
+        "6201": "Heavy Freezing Rain",
+        "7000": "Ice Pellets",
+        "7101": "Heavy Ice Pellets",
+        "7102": "Light Ice Pellets",
+        "8000": "Thunderstorm"
     };
     return descriptions[weatherCode] || "Unknown weather condition";
 }
 
 // Check for storm conditions
 function checkStormConditions(weatherCode) {
-    const stormCodes = [200, 201, 202, 230, 231, 232, 8000];
+    const stormCodes = [8000];
     return stormCodes.includes(weatherCode) ? "Storm expected. Stay safe!" : "No storm expected.";
 }
