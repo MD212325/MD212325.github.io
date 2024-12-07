@@ -65,7 +65,7 @@ searchField.addEventListener("input", function () {
                             <p class="label-2 item-subtitle">${state || ""} ${country}</p>
                         </div>
 
-                        <a href="#/weather?lat=${lat}&$lon=${lon}" class="item-link has-state" aria-label="${name} weather" data-search-toggler=""></a>
+                        <a href="#/weather?lat=${lat}&lon=${lon}" class="item-link has-state" aria-label="${name} weather" data-search-toggler=""></a>
                     `;
 
                     searchResult.querySelector("[data-search-list]").appendChild(searchItem);
@@ -105,13 +105,49 @@ export const updateWeather = function (lat, lon) {
     const highlightSection = document.querySelector("[data-highlights]");
     const hourlySection = document.querySelector("[data-hourly-forecast]");
     const forecastSection = document.querySelector("[data-5-day-forecast]");
+    const mapSection = document.querySelector("[data-map]");
+    const mapToggler = document.querySelector("[data-map-toggler]");
+    const mapContainer = mapSection.querySelector("#map");
 
     currentWeatherSection.innerHTML = "";
     highlightSection.innerHTML = "";
     hourlySection.innerHTML = "";
     forecastSection.innerHTML = "";
 
-    if (window.location.hash === "#/current-location") {
+    mapToggler.addEventListener("click", function () {
+        mapSection.classList.toggle("active");
+        mapToggler.classList.toggle("active");
+    });
+    
+    if (!mapSection.mapInstance) {
+        // Initialize the map only once
+        const map = L.map(mapContainer).setView([lat, lon], 10);
+        mapSection.mapInstance = map;
+    
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+    
+        // Add event listener for map clicks
+        map.on('click', function (e) {
+            const { lat, lng } = e.latlng;
+    
+            // Update weather for the clicked location
+            updateWeather(lat, lng);
+        });
+    }
+    
+    // Add or update the marker for the current location
+    if (mapSection.marker) {
+        mapSection.marker.setLatLng([lat, lon]); // Update marker position
+    } else {
+        mapSection.marker = L.marker([lat, lon]).addTo(mapSection.mapInstance);
+    }
+    
+
+    if (window.location.hash === "/current-location") {
         currentLocationBtn.setAttribute("disabled", "");
     } else {
         currentLocationBtn.removeAttribute("disabled");
@@ -131,6 +167,7 @@ export const updateWeather = function (lat, lon) {
         const [{ description, icon }] = weather;
 
         const card = document.createElement("div");
+        currentWeatherSection.innerHTML = "";
         card.classList.add("card", "card-lg", "current-weather-card");
 
         card.innerHTML = `
@@ -166,6 +203,33 @@ export const updateWeather = function (lat, lon) {
         });
 
         currentWeatherSection.appendChild(card);
+        
+
+        if (typeof lat === 'number' && typeof lon === 'number') {
+        
+            if (mapSection.mapInstance) {
+                mapSection.mapInstance.setView([lat, lon], 10);
+            } else {
+                const map = L.map(mapContainer).setView([lat, lon], 10);
+                mapSection.mapInstance = map;
+        
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(map);
+            }
+        
+            if (mapSection.marker) {
+                mapSection.marker.setLatLng([lat, lon]);
+            } else {
+                mapSection.marker = L.marker([lat, lon]).addTo(mapSection.mapInstance);
+            }
+        } else {
+            console.error("Invalid coordinates for the map:", lat, lon);
+        }
+
+        console.log("Latitude:", lat, "Longitude:", lon);
+
 
         // Today's Highlights
         fetchData(url.airPollution(lat, lon), function (airPollution) {

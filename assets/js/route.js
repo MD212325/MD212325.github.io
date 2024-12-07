@@ -5,19 +5,23 @@ const defaultLocation = "#/weather?lat=14.5234&lon=121.2651"
 
 const currentLocation = function () {
     window.navigator.geolocation.getCurrentPosition(res => {
-        const { latitude, longtitude } = res.coords;
-
-        updateWeather(`lat=${latitude}`, `lon=${longtitude}`);
+        const { latitude, longitude } = res.coords;
+        updateWeather(latitude, longitude); // Pass as separate numbers
     }, err => {
         window.location.hash = defaultLocation;
     });
-}
-
+};
 
 /**
  * @param {string} query Searched query
  */
-const searchedLocation = query => updateWeather(...query.split("$"));
+const searchedLocation = query => {
+    const params = new URLSearchParams(query);
+    const lat = parseFloat(params.get("lat"));
+    const lon = parseFloat(params.get("lon"));
+    updateWeather(lat, lon);
+};
+
 
 const routes = new Map([
     ["/current-location", currentLocation],

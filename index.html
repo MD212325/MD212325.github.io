@@ -6,12 +6,13 @@
     <title>Weather Forecast</title>
     <meta name="title" content="Weather Forecast">
     <meta name="description" content="Weather Forecast Website app made by Marc Dwyane A. Tisang">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="./assets/js/app.js" type="module"></script>
     <script src="./assets/js/route.js" type="module"></script>
 </head>
@@ -54,6 +55,11 @@
                     <span class="span">Current Location</span>
                 </a>
 
+                <a href="javascript:void(0)" class="btn-primary btn-map has-state" data-map-toggler>
+                    <span class="m-icon">map</span>
+                    <span class="span">Toggle Map</span>
+                </a>
+                
             </div>
 
 
@@ -70,7 +76,9 @@
                 <section class="section current-weather" aria-label="current weather" data-current-weather></section>
 
 
-
+                <section class="section map" aria-label="map" data-map>
+                    <div id="map" style="height: 400px;"></div>
+                  </section>                  
 
 
                 <section class="section forecast" aria-labelledby="forecast-label" data-5-day-forecast></section>
@@ -91,12 +99,19 @@
 
                 <footer class="footer">
                     <p class="body-3">
-                        Copyright 2024 Marc Dwyane A. Tisang. All Rights Reserved.
+                        Copyright © 2024 Marc Dwyane A. Tisang. All Rights Reserved.
                     </p>
     
                     <p class="body-3">
                         Powered by <a href="https://openweathermap.org/api" title="Free OpenWeather Api" target="_blank" rel="noopener">
                             <img src="./assets/images/openweather.png" width="150" height="30" loading="lazy" alt="OpenWeather">
+                        </a>
+                    </p>
+
+                    <p class="body-3">
+                        Map data &copy; 
+                        <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">
+                            OpenStreetMap contributors
                         </a>
                     </p>
                 </footer>
