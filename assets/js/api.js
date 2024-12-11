@@ -24,13 +24,17 @@ export const url = {
     airPollution(lat, lon) {
         return `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}`
     },
-    reverseGeo(lat, lon) {
-        return `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=5`
-    },
     /**
      * @param {string} query Search query e.g.: "Manila", "Baras", "Tanay"
      */
     geo(query) {
         return `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5`
+    }
+}
+
+export const reverseGeoUrl = {
+    reverseGeo(lat, lon) {
+        /* return `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=5` */
+        return `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&address_only=1&key=3dbb9f2e6fad46c2a641a5aeae1ca72b`
     }
 }
