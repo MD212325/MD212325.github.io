@@ -213,8 +213,9 @@ export const updateWeather = function (lat, lon) {
                 const locationData = results[0];
                 const name = locationData.components.city || locationData.components.town || locationData.components.village || "Unknown Location";
                 const country = locationData.components.country || "Unknown Country";
+                const city = locationData.components.state;
     
-                card.querySelector("[data-location]").innerHTML = `${name}, ${country}`;
+                card.querySelector("[data-location]").innerHTML = `${name}, ${city}, ${country}`;
             } else {
                 console.log("No results found for the given coordinates");
             }
