@@ -205,8 +205,18 @@ export const updateWeather = function (lat, lon) {
             </ul>
         `;
 
-        fetchData(url.reverseGeo(lat, lon), function ([{ name, country }]) {
-            card.querySelector("[data-location]").innerHTML = `${name}, ${country}`
+        fetchData(reverseGeoUrl.reverseGeo(lat, lon), function (data) {
+            const results = data.results;
+    
+            if (results && results.length > 0) {
+                const locationData = results[0];
+                const name = locationData.components.city || locationData.components.town || locationData.components.village || "Unknown Location";
+                const country = locationData.components.country || "Unknown Country";
+    
+                card.querySelector("[data-location]").innerHTML = `${name}, ${country}`;
+            } else {
+                console.log("No results found for the given coordinates");
+            }
         });
 
         currentWeatherSection.appendChild(card);
