@@ -129,8 +129,9 @@ export const updateWeather = function (lat, lon) {
             maxZoom: 19,
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
+        
 
-        /* For cartodb's tiles and better styling atleast for me it has better style :)
+        /* For cartodb's tiles and better styling atleast for me :)
         L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}{r}.png', {
             maxZoom: 19,
             attribution: '© OpenStreetMap contributors'
